@@ -3,199 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adela Smid — Filmmaker</title>
-<meta name="description" content="Adela Smid — director and cinematographer. Selected films, commercials and documentary work.">
+<title>adelasmid.</title>
+<meta name="description" content="adéla šmídová — filmmaker, cinematographer and photographer based in prague and hamburg.">
 <style>
-:root{--bg:#0b0b0b;--fg:#ededea;--dim:#8a8a86;--line:#222;}
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--fg);font:15px/1.5 "Helvetica Neue",Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{background:#fff;color:#000}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;text-transform:lowercase;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-header{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;justify-content:space-between;align-items:baseline;padding:22px 28px;mix-blend-mode:difference;color:#fff}
-.logo{font-size:15px;letter-spacing:.02em}
-.logo span{color:#9a9a9a}
-nav a{margin-left:26px;font-size:14px;opacity:.85}
-nav a:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
-.hero{position:relative;height:100vh;min-height:520px;overflow:hidden;display:flex;align-items:flex-end}
-.hero video,.hero .poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero .poster{background:radial-gradient(ellipse at 30% 40%,#3a2d24 0%,#16120f 55%,#0b0b0b 100%)}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.65))}
-.hero-text{position:relative;z-index:2;padding:0 28px 34px;width:100%;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}
-.hero h1{font-weight:400;font-size:clamp(34px,6vw,84px);line-height:.95;letter-spacing:-.02em}
-.hero .reel{font-size:14px;border:1px solid rgba(255,255,255,.5);padding:9px 16px;border-radius:40px;white-space:nowrap;cursor:pointer;background:none;color:#fff}
-.hero .reel:hover{background:#fff;color:#000}
-section{padding:110px 28px 40px}
-.label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:28px;display:flex;justify-content:space-between}
-.filters button{background:none;border:0;color:var(--dim);font:inherit;letter-spacing:inherit;text-transform:inherit;margin-left:18px;cursor:pointer}
-.filters button.on,.filters button:hover{color:var(--fg)}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:46px 28px}
-.film{cursor:pointer}
-.film .frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:#151515}
-.film .frame img,.film .frame .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1),filter .6s}
-.film:hover .frame img,.film:hover .frame .ph{transform:scale(1.035)}
-.film .play{position:absolute;left:16px;bottom:14px;font-size:13px;opacity:0;transform:translateY(6px);transition:.4s}
-.film:hover .play{opacity:1;transform:none}
-.film .meta{display:flex;justify-content:space-between;gap:16px;padding-top:12px;font-size:14px}
-.film .meta .t{color:var(--fg)}
-.film .meta .r{color:var(--dim);text-align:right}
-.about{display:grid;grid-template-columns:1fr 1.4fr;gap:60px;border-top:1px solid var(--line);margin-top:80px}
-.about .portrait{aspect-ratio:4/5;background:linear-gradient(160deg,#2a2a2a,#121212)}
-.about p{font-size:clamp(18px,2vw,24px);line-height:1.4;margin-bottom:22px;max-width:30em}
-.about .cols{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:44px;font-size:14px}
-.about .cols h3{font-weight:400;color:var(--dim);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
-.about .cols li{list-style:none;padding:3px 0}
-.contact{border-top:1px solid var(--line);padding-bottom:30px}
-.contact a.big{display:inline-block;font-size:clamp(30px,5.4vw,76px);letter-spacing:-.02em;line-height:1;border-bottom:1px solid transparent}
-.contact a.big:hover{border-color:var(--fg)}
-.contact .links{margin-top:34px;display:flex;flex-wrap:wrap;gap:26px;font-size:14px;color:var(--dim)}
-.contact .links a:hover{color:var(--fg)}
-footer{padding:60px 28px 26px;font-size:12px;color:var(--dim);display:flex;justify-content:space-between}
-.lightbox{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.96);display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 28px}
-.lightbox.open{display:flex}
-.lightbox .player{width:min(1400px,100%);aspect-ratio:16/9;background:#000}
-.lightbox iframe{width:100%;height:100%;border:0}
-.lightbox .empty{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:14px;border:1px solid var(--line)}
-.lightbox .info{width:min(1400px,100%);display:flex;justify-content:space-between;gap:20px;padding-top:16px;font-size:14px}
-.lightbox .info .d{color:var(--dim);max-width:46em}
-.lightbox .close{position:absolute;top:20px;right:28px;background:none;border:0;color:#fff;font:inherit;font-size:14px;cursor:pointer}
-.reveal{opacity:0;transform:translateY(18px);transition:opacity .9s,transform .9s}
-.reveal.in{opacity:1;transform:none}
-@media (max-width:760px){
-  header{padding:18px}
-  nav a{margin-left:16px}
-  section{padding:90px 18px 30px}
-  .hero-text{padding:0 18px 24px;flex-direction:column;align-items:flex-start}
-  .grid{grid-template-columns:1fr;gap:36px}
-  .about{grid-template-columns:1fr;gap:30px}
-  .filters{display:none}
-  footer{padding:40px 18px 20px}
+a:hover{opacity:.5}
+
+/* top panel */
+.bar{position:fixed;top:0;left:0;right:0;height:56px;display:flex;align-items:center;gap:28px;padding:0 24px;background:#fff;z-index:10}
+.icon{width:22px;height:22px;border:0;background:none;cursor:pointer;position:relative;flex:none}
+.icon span{position:absolute;left:2px;right:2px;height:1px;background:#000;transition:transform .3s,top .3s}
+.icon span:nth-child(1){top:8px}
+.icon span:nth-child(2){top:14px}
+.open .icon span:nth-child(1){top:11px;transform:rotate(45deg)}
+.open .icon span:nth-child(2){top:11px;transform:rotate(-45deg)}
+.menu{display:flex;gap:24px;opacity:0;pointer-events:none;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.open .menu{opacity:1;pointer-events:auto;transform:none}
+.menu a.on{text-decoration:underline;text-underline-offset:3px}
+.bar .home{margin-left:auto}
+.is-home .bar .home{visibility:hidden}
+
+/* pages */
+.page{display:none;min-height:100vh;padding:96px 24px 60px}
+.page.on{display:block}
+#home{display:none;align-items:center;justify-content:center;padding:0}
+#home.on{display:flex;height:100vh}
+#home h1{font-weight:400;font-size:14px}
+
+/* photography grid */
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;align-items:start}
+.photos img{width:100%;height:auto;display:block}
+
+/* video & film list */
+.films{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:40px 24px}
+.films .frame{aspect-ratio:16/9;background:#f2f2f2}
+.films iframe{width:100%;height:100%;border:0;display:block}
+.films p{padding-top:8px;display:flex;justify-content:space-between;gap:16px}
+.films p span:last-child{color:#888}
+
+.empty{color:#888}
+
+/* about */
+.about{max-width:520px}
+.about p{margin-bottom:18px}
+.about .k{color:#888}
+
+@media (max-width:600px){
+  .bar{padding:0 16px;gap:18px}
+  .menu{gap:14px}
+  .page{padding:84px 16px 40px}
+  .films{grid-template-columns:1fr}
+  .bar .home{display:none}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <a class="logo" href="#top">Adela Smid <span>— Filmmaker</span></a>
-  <nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
-</header>
-
-<div class="hero" id="top">
-  <!-- SHOWREEL: put a short muted loop (mp4) in the repo and set src, e.g. src="media/reel-loop.mp4" -->
-  <div class="poster"></div>
-  <video id="heroVideo" autoplay muted loop playsinline style="display:none"></video>
-  <div class="hero-text">
-    <h1>Director &amp;<br>Cinematographer</h1>
-    <button class="reel" onclick="openFilm(REEL)">▶ Watch showreel</button>
-  </div>
+<div class="bar" id="bar">
+  <button class="icon" id="icon" aria-label="menu"><span></span><span></span></button>
+  <nav class="menu">
+    <a href="#video">video</a>
+    <a href="#film">film</a>
+    <a href="#photography">photography</a>
+    <a href="#about">about</a>
+  </nav>
+  <a class="home" href="#">adelasmid.</a>
 </div>
 
-<section id="work">
-  <div class="label"><span>Selected work</span><span class="filters" id="filters"></span></div>
-  <div class="grid" id="grid"></div>
-</section>
+<main>
+  <section class="page" id="home"><h1>adelasmid.</h1></section>
 
-<section id="about" class="about">
-  <div class="portrait reveal"><!-- replace with <img src="media/portrait.jpg" alt="Adela Smid" style="width:100%;height:100%;object-fit:cover"> --></div>
-  <div class="reveal">
-    <p>Adela Smid is a filmmaker working between documentary, music video and commercial work. Her films look for quiet moments inside loud places.</p>
-    <p style="color:var(--dim)">Placeholder bio — replace with a few lines about your background, where you're based, and what you're drawn to as a filmmaker.</p>
-    <div class="cols">
-      <div><h3>Clients</h3><ul><li>Client One</li><li>Client Two</li><li>Client Three</li><li>Client Four</li></ul></div>
-      <div><h3>Recognition</h3><ul><li>Festival Name — Official Selection, 2025</li><li>Award Name — Shortlist, 2024</li><li>Publication — Feature, 2024</li></ul></div>
+  <section class="page" id="video"><div class="films" id="videoList"></div></section>
+
+  <section class="page" id="film"><div class="films" id="filmList"></div></section>
+
+  <section class="page" id="photography"><div class="photos" id="photoList"></div></section>
+
+  <section class="page" id="about">
+    <div class="about">
+      <p>adéla šmídová — filmmaker, cinematographer and director of photography, video and film editor, and portrait photographer based in prague and hamburg.</p>
+      <p>available for film and video production, photography portfolios, music videos, film trailers, theatre performance videos and commercial work.</p>
+      <p><span class="k">contact</span><br><a href="mailto:adela.smidova@gmail.com">adela.smidova@gmail.com</a></p>
+      <p><span class="k">follow</span><br>
+        <a href="https://instagram.com/adelaespresso" target="_blank" rel="noopener">instagram</a><br>
+        <a href="https://youtube.com/@adelaespresso" target="_blank" rel="noopener">youtube</a><br>
+        <a href="https://www.linkedin.com/in/adela-smidova-5b24a6422" target="_blank" rel="noopener">linkedin</a></p>
     </div>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <div class="label"><span>Contact</span></div>
-  <a class="big" href="mailto:hello@example.com">hello@example.com</a>
-  <div class="links">
-    <a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a>
-    <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
-    <span>Representation: Agency Name</span>
-  </div>
-</section>
-
-<footer><span>© <span id="yr"></span> Adela Smid</span><a href="#top">Back to top ↑</a></footer>
-
-<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeFilm()">
-  <button class="close" onclick="closeFilm()">Close ✕</button>
-  <div class="player" id="player"></div>
-  <div class="info"><span id="lbTitle"></span><span class="d" id="lbDesc"></span></div>
-</div>
+  </section>
+</main>
 
 <script>
-/* =====================================================================
-   EDIT YOUR FILMS HERE
-   - title, year, role, type: shown under each thumbnail
-   - type is used for the filter buttons (e.g. "Commercial", "Music Video", "Documentary", "Narrative")
-   - video: "vimeo:123456789" or "youtube:dQw4w9WgXcQ" (leave "" until you have it)
-   - thumb: path to an image in the repo, e.g. "media/film1.jpg" (leave "" for a placeholder)
-   - desc: one or two lines shown in the player
-   ===================================================================== */
-const REEL = {title:"Showreel 2026", year:"2026", role:"", type:"", video:"", thumb:"", desc:"Add your reel's Vimeo or YouTube ID to REEL in index.html."};
+/* ============================================================
+   add your work here
+   video / film: { title, year, link }  — link = "vimeo:123456" or "youtube:abcDEF123"
+   photography:  file names of photos uploaded to the photos/ folder
+   ============================================================ */
+const VIDEOS = [];
+const FILMS  = [];
+const PHOTOS = [];
+/* ============================================================ */
 
-const FILMS = [
-  {title:"Film Title One",   year:"2026", role:"Director",              type:"Narrative",   video:"", thumb:"", desc:"Short film. One-line logline goes here."},
-  {title:"Brand — Campaign", year:"2025", role:"Director",              type:"Commercial",  video:"", thumb:"", desc:"Client, agency and production company credits."},
-  {title:"Artist — Song",    year:"2025", role:"Director / DP",         type:"Music Video", video:"", thumb:"", desc:"Music video credits."},
-  {title:"Documentary Title",year:"2024", role:"Director",              type:"Documentary", video:"", thumb:"", desc:"Where it screened, who it's about."},
-  {title:"Brand — Spot",     year:"2024", role:"Cinematographer",       type:"Commercial",  video:"", thumb:"", desc:"Client and director credits."},
-  {title:"Film Title Two",   year:"2023", role:"Writer / Director",     type:"Narrative",   video:"", thumb:"", desc:"Festival selections."}
-];
-/* ===================================================================== */
+function embed(l){
+  const [k,id]=(l||"").split(":");
+  if(k==="vimeo")return "https://player.vimeo.com/video/"+id+"?title=0&byline=0&portrait=0";
+  if(k==="youtube")return "https://www.youtube.com/embed/"+id+"?rel=0";
+  return "";
+}
+function list(el,items){
+  if(!items.length){el.outerHTML='<p class="empty">coming soon.</p>';return}
+  el.innerHTML=items.map(v=>`<div><div class="frame">${embed(v.link)?`<iframe src="${embed(v.link)}" allow="fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`:""}</div><p><span>${v.title||""}</span><span>${v.year||""}</span></p></div>`).join("");
+}
+list(document.getElementById("videoList"),VIDEOS);
+list(document.getElementById("filmList"),FILMS);
+const pl=document.getElementById("photoList");
+if(!PHOTOS.length)pl.outerHTML='<p class="empty">coming soon.</p>';
+else pl.innerHTML=PHOTOS.map(f=>`<img src="photos/${f}" alt="" loading="lazy">`).join("");
 
-const tones=[["#3b2a20","#120d0a"],["#1f2a33","#0a0e12"],["#2e2a1d","#100f0a"],["#2a1f2c","#0e0a10"],["#1e2c25","#0a100d"],["#332222","#120a0a"]];
-const grid=document.getElementById("grid");
-function render(filter){
-  grid.innerHTML="";
-  FILMS.forEach((f,i)=>{
-    if(filter&&filter!=="All"&&f.type!==filter)return;
-    const t=tones[i%tones.length];
-    const el=document.createElement("div");
-    el.className="film reveal";
-    el.innerHTML=`<div class="frame">${f.thumb?`<img src="${f.thumb}" alt="${f.title}" loading="lazy">`:`<div class="ph" style="background:radial-gradient(ellipse at ${30+i*9%50}% 45%,${t[0]},${t[1]} 75%)"></div>`}<span class="play">▶ Play</span></div>
-      <div class="meta"><span class="t">${f.title}</span><span class="r">${f.role}, ${f.year}</span></div>`;
-    el.onclick=()=>openFilm(f);
-    grid.appendChild(el);
-  });
-  observe();
+const bar=document.getElementById("bar");
+document.getElementById("icon").onclick=()=>bar.classList.toggle("open");
+function route(){
+  const id=(location.hash||"#home").slice(1);
+  const page=document.getElementById(id)||document.getElementById("home");
+  document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p===page));
+  document.querySelectorAll(".menu a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+page.id));
+  document.body.classList.toggle("is-home",page.id==="home");
+  if(page.id!=="home")bar.classList.add("open");
+  window.scrollTo(0,0);
 }
-const types=["All",...new Set(FILMS.map(f=>f.type).filter(Boolean))];
-const fb=document.getElementById("filters");
-types.forEach((ty,i)=>{const b=document.createElement("button");b.textContent=ty;if(i===0)b.className="on";
-  b.onclick=()=>{fb.querySelectorAll("button").forEach(x=>x.className="");b.className="on";render(ty)};fb.appendChild(b)});
-
-function embed(v){
-  if(!v)return null;
-  const [k,id]=v.split(":");
-  if(k==="vimeo")return `https://player.vimeo.com/video/${id}?autoplay=1&title=0&byline=0&portrait=0`;
-  if(k==="youtube")return `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-  return null;
-}
-function openFilm(f){
-  const src=embed(f.video);
-  document.getElementById("player").innerHTML=src?`<iframe src="${src}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`:`<div class="empty">Video coming soon</div>`;
-  document.getElementById("lbTitle").textContent=[f.title,f.year].filter(Boolean).join(", ");
-  document.getElementById("lbDesc").textContent=f.desc||"";
-  document.getElementById("lightbox").classList.add("open");
-  document.body.style.overflow="hidden";
-}
-function closeFilm(){
-  document.getElementById("lightbox").classList.remove("open");
-  document.getElementById("player").innerHTML="";
-  document.body.style.overflow="";
-}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeFilm()});
-
-let io;
-function observe(){
-  io=io||new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12});
-  document.querySelectorAll(".reveal:not(.in)").forEach(el=>io.observe(el));
-}
-render("All");
-document.getElementById("yr").textContent=new Date().getFullYear();
+window.addEventListener("hashchange",route);
+route();
 </script>
 </body>
 </html>
