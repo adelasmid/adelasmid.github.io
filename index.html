@@ -23,16 +23,17 @@ a:hover{opacity:.5}
 .menu{display:flex;gap:24px;opacity:0;pointer-events:none;transform:translateX(-6px);transition:opacity .3s,transform .3s}
 .open .menu{opacity:1;pointer-events:auto;transform:none}
 .menu a.on{text-decoration:underline;text-underline-offset:3px}
-.bar .home{position:absolute;left:50%;transform:translateX(-50%)}
+.bar .home{margin-left:auto}
 
 /* pages */
 .page{display:none;min-height:100vh;padding:96px 24px 60px}
 .page.on{display:block}
-#home{display:none;align-items:center;padding:80px 24px 40px}
-#home.on{display:flex;min-height:100vh}
-.strip{display:flex;gap:24px;width:100%;align-items:flex-start}
-.strip img{display:block;width:100%;height:auto;min-width:0}
-.strip figure{min-width:0}
+#home{padding:56px 0 0;min-height:0}
+#home.on{display:block}
+.strip{display:flex;gap:8px;height:calc(100vh - 56px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.strip figure{flex:none;height:100%;scroll-snap-align:start}
+.strip img{display:block;height:100%;width:auto}
 
 /* photography grid */
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;align-items:start}
@@ -52,16 +53,12 @@ a:hover{opacity:.5}
 .about p{margin-bottom:18px}
 .about .k{color:#888}
 
-@media (max-width:900px){.open .home{display:none}}
 @media (max-width:600px){
   .bar{padding:0 16px;gap:18px}
   .menu{gap:14px}
   .page{padding:84px 16px 40px}
   .films{grid-template-columns:1fr}
-  #home{padding:76px 16px 30px}
-  .strip{flex-direction:column;gap:16px}
-  .strip figure{flex:none!important;width:100%}
-  .bar .home{position:static;transform:none;margin-left:auto}
+  .strip{height:calc(100svh - 56px)}
   .open .home{display:none}
 }
 </style>
@@ -83,9 +80,9 @@ a:hover{opacity:.5}
 <main>
   <section class="page" id="home">
     <div class="strip">
-      <figure style="flex:1.4185 1 0"><img src="photos/000036900038.jpg" alt=""></figure>
-      <figure style="flex:1.5091 1 0"><img src="photos/IMG_1505.JPG" alt=""></figure>
-      <figure style="flex:1.3333 1 0"><img src="photos/PICT0001.JPG" alt=""></figure>
+      <figure><img src="photos/000036900038.jpg" alt=""></figure>
+      <figure><img src="photos/PICT0001.JPG" alt=""></figure>
+      <figure><img src="photos/IMG_1505.JPG" alt=""></figure>
     </div>
   </section>
 
@@ -148,6 +145,8 @@ function route(){
   window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",route);
+const strip=document.querySelector(".strip");
+strip.addEventListener("wheel",e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){strip.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
 route();
 </script>
 </body>
