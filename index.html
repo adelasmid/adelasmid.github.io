@@ -30,10 +30,8 @@ a:hover{opacity:.5}
 .page.on{display:block}
 #home{padding:56px 0 0;min-height:0}
 #home.on{display:block}
-.strip{display:flex;gap:8px;height:calc(100vh - 56px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x proximity;scrollbar-width:none}
-.strip::-webkit-scrollbar{display:none}
-.strip figure{flex:none;height:100%;scroll-snap-align:start}
-.strip img{display:block;height:100%;width:auto}
+.strip figure{margin:0}
+.strip img{display:block;width:100%;height:auto}
 
 /* photography grid */
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;align-items:start}
@@ -58,7 +56,6 @@ a:hover{opacity:.5}
   .menu{gap:14px}
   .page{padding:84px 16px 40px}
   .films{grid-template-columns:1fr}
-  .strip{height:calc(100svh - 56px)}
   .open .home{display:none}
 }
 </style>
@@ -145,8 +142,6 @@ function route(){
   window.scrollTo(0,0);
 }
 window.addEventListener("hashchange",route);
-const strip=document.querySelector(".strip");
-strip.addEventListener("wheel",e=>{if(Math.abs(e.deltaY)>Math.abs(e.deltaX)){strip.scrollLeft+=e.deltaY;e.preventDefault()}},{passive:false});
 route();
 </script>
 </body>
