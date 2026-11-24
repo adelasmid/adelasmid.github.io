@@ -8,7 +8,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#fff;color:#000}
-body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.45;text-transform:lowercase;-webkit-font-smoothing:antialiased}
+body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;font-weight:500;line-height:1.45;text-transform:lowercase;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 a:hover{opacity:.5}
 
@@ -23,15 +23,16 @@ a:hover{opacity:.5}
 .menu{display:flex;gap:24px;opacity:0;pointer-events:none;transform:translateX(-6px);transition:opacity .3s,transform .3s}
 .open .menu{opacity:1;pointer-events:auto;transform:none}
 .menu a.on{text-decoration:underline;text-underline-offset:3px}
-.bar .home{margin-left:auto}
-.is-home .bar .home{visibility:hidden}
+.bar .home{position:absolute;left:50%;transform:translateX(-50%)}
 
 /* pages */
 .page{display:none;min-height:100vh;padding:96px 24px 60px}
 .page.on{display:block}
-#home{display:none;align-items:center;justify-content:center;padding:0}
-#home.on{display:flex;height:100vh}
-#home h1{font-weight:400;font-size:14px}
+#home{display:none;align-items:center;padding:80px 24px 40px}
+#home.on{display:flex;min-height:100vh}
+.strip{display:flex;gap:24px;width:100%;align-items:flex-start}
+.strip img{display:block;width:100%;height:auto;min-width:0}
+.strip figure{min-width:0}
 
 /* photography grid */
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;align-items:start}
@@ -51,12 +52,17 @@ a:hover{opacity:.5}
 .about p{margin-bottom:18px}
 .about .k{color:#888}
 
+@media (max-width:900px){.open .home{display:none}}
 @media (max-width:600px){
   .bar{padding:0 16px;gap:18px}
   .menu{gap:14px}
   .page{padding:84px 16px 40px}
   .films{grid-template-columns:1fr}
-  .bar .home{display:none}
+  #home{padding:76px 16px 30px}
+  .strip{flex-direction:column;gap:16px}
+  .strip figure{flex:none!important;width:100%}
+  .bar .home{position:static;transform:none;margin-left:auto}
+  .open .home{display:none}
 }
 </style>
 </head>
@@ -65,22 +71,31 @@ a:hover{opacity:.5}
 <div class="bar" id="bar">
   <button class="icon" id="icon" aria-label="menu"><span></span><span></span></button>
   <nav class="menu">
-    <a href="#video">video</a>
     <a href="#film">film</a>
+    <a href="#video">video</a>
     <a href="#photography">photography</a>
+    <a href="#creative">creative</a>
     <a href="#about">about</a>
   </nav>
   <a class="home" href="#">adelasmid.</a>
 </div>
 
 <main>
-  <section class="page" id="home"><h1>adelasmid.</h1></section>
-
-  <section class="page" id="video"><div class="films" id="videoList"></div></section>
+  <section class="page" id="home">
+    <div class="strip">
+      <figure style="flex:1.4185 1 0"><img src="photos/000036900038.jpg" alt=""></figure>
+      <figure style="flex:1.5091 1 0"><img src="photos/IMG_1505.JPG" alt=""></figure>
+      <figure style="flex:1.3333 1 0"><img src="photos/PICT0001.JPG" alt=""></figure>
+    </div>
+  </section>
 
   <section class="page" id="film"><div class="films" id="filmList"></div></section>
 
+  <section class="page" id="video"><div class="films" id="videoList"></div></section>
+
   <section class="page" id="photography"><div class="photos" id="photoList"></div></section>
+
+  <section class="page" id="creative"><p class="empty">coming soon.</p></section>
 
   <section class="page" id="about">
     <div class="about">
@@ -129,7 +144,6 @@ function route(){
   const page=document.getElementById(id)||document.getElementById("home");
   document.querySelectorAll(".page").forEach(p=>p.classList.toggle("on",p===page));
   document.querySelectorAll(".menu a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+page.id));
-  document.body.classList.toggle("is-home",page.id==="home");
   if(page.id!=="home")bar.classList.add("open");
   window.scrollTo(0,0);
 }
