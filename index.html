@@ -34,8 +34,12 @@ a:hover{opacity:.5}
 .strip img{display:block;width:100%;height:auto}
 
 /* photography grid */
-.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px;align-items:start}
-.photos img{width:100%;height:auto;display:block}
+.photos{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-flow:row dense;column-gap:24px;row-gap:48px;align-items:start;padding-bottom:80px}
+.photos figure{margin:0;cursor:zoom-in}
+.photos img{width:100%;height:auto;display:block;background:#f4f4f4}
+.lb{position:fixed;inset:0;background:#fff;z-index:50;display:none;align-items:center;justify-content:center;padding:64px 24px;cursor:zoom-out}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;display:block}
 
 /* video & film list */
 .films{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:40px 24px}
@@ -56,6 +60,7 @@ a:hover{opacity:.5}
   .menu{gap:14px}
   .page{padding:84px 16px 40px}
   .films{grid-template-columns:1fr}
+  .photos{grid-template-columns:repeat(6,1fr);column-gap:12px;row-gap:28px}
   .open .home{display:none}
 }
 </style>
@@ -104,6 +109,8 @@ a:hover{opacity:.5}
   </section>
 </main>
 
+<div class="lb" id="lb"><img id="lbImg" alt=""></div>
+
 <script>
 /* ============================================================
    add your work here
@@ -112,7 +119,12 @@ a:hover{opacity:.5}
    ============================================================ */
 const VIDEOS = [];
 const FILMS  = [];
-const PHOTOS = [];
+const PHOTOS = [
+  "616A8942.JPG","000036900008.jpg","616A8957.JPG","000036900014.jpg","000036900009.jpg",
+  "000036900017.jpg","616A8959.JPG","000036900012.jpg","000036900026.jpg","000036900015.jpg",
+  "000036900029.jpg","000036900018.jpg","000036900031.jpg","000036900022.jpg","000036900027.jpg",
+  "000036900019.jpg","000036900035.jpg","000036900032.jpg","000036900036.jpg","000036900038.jpg"
+];
 /* ============================================================ */
 
 function embed(l){
@@ -129,7 +141,27 @@ list(document.getElementById("videoList"),VIDEOS);
 list(document.getElementById("filmList"),FILMS);
 const pl=document.getElementById("photoList");
 if(!PHOTOS.length)pl.outerHTML='<p class="empty">coming soon.</p>';
-else pl.innerHTML=PHOTOS.map(f=>`<img src="photos/${f}" alt="" loading="lazy">`).join("");
+else{
+  /* loose, hand-placed feel: [start column, width in columns, extra space above] */
+  const big=[[1,5,0],[8,4,140],[3,3,40],[7,6,0],[1,4,90],[6,3,220],[9,4,0],[2,6,60],[9,3,180],[4,4,0],
+             [1,3,110],[6,5,40],[2,4,0],[7,4,150],[1,6,40],[8,5,0],[4,3,100],[9,4,30],[2,5,0],[7,6,90]];
+  const small=[[1,5,0],[2,5,0],[1,4,0],[3,4,40],[1,6,0],[2,4,0],[1,3,20],[4,3,0]];
+  function layout(){
+    const m=matchMedia("(max-width:600px)").matches, pat=m?small:big;
+    pl.querySelectorAll("figure").forEach((el,i)=>{
+      const [c,w,t]=pat[i%pat.length];
+      el.style.gridColumn=c+" / span "+w; el.style.marginTop=(m?t/2:t)+"px";
+    });
+  }
+  pl.innerHTML=PHOTOS.map((f,i)=>`<figure data-i="${i}"><img src="photos/${f}" alt="" loading="lazy"></figure>`).join("");
+  layout(); addEventListener("resize",layout);
+  const lb=document.getElementById("lb"), lbImg=document.getElementById("lbImg"); let cur=0;
+  const show=i=>{cur=(i+PHOTOS.length)%PHOTOS.length;lbImg.src="photos/"+PHOTOS[cur];lb.classList.add("on")};
+  pl.addEventListener("click",e=>{const f=e.target.closest("figure");if(f)show(+f.dataset.i)});
+  lb.addEventListener("click",()=>lb.classList.remove("on"));
+  addEventListener("keydown",e=>{if(!lb.classList.contains("on"))return;
+    if(e.key==="Escape")lb.classList.remove("on");if(e.key==="ArrowRight")show(cur+1);if(e.key==="ArrowLeft")show(cur-1)});
+}
 
 const bar=document.getElementById("bar");
 document.getElementById("icon").onclick=()=>bar.classList.toggle("open");
